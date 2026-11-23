@@ -26,4 +26,31 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /yourdomain.com/htdocs/  # For addon domains
           timeout: 86400000
+          log-level: standardname: Deploy to InfinityFree
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy via FTP
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get latest code
+        uses: actions/checkout@v4
+
+      - name: Deploy to InfinityFree via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ftpupload.net
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./
+          server-dir: /htdocs/
+          ## exclude: | <file name here>
+          timeout: 86400000
           log-level: standard
