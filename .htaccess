@@ -1,0 +1,18 @@
+Options -MultiViews
+
+RewriteEngine On
+RewriteBase /asu-rems/
+
+DirectoryIndex index.php
+
+# Automatically redirect old PHP URLs to clean URLs
+# Only for GET and HEAD requests
+RewriteCond %{REQUEST_METHOD} ^(GET|HEAD)$
+RewriteCond %{THE_REQUEST} \s/+asu-rems/.+\.php[\s?] [NC]
+RewriteRule ^(.+)\.php$ /asu-rems/$1 [R=302,L,NE]
+
+# Make clean URLs load their corresponding PHP files
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.+?)/?$ $1.php [L,QSA]
