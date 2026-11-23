@@ -23,6 +23,9 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
           server-dir: /htdocs/
-          ## exclude: | <file name here>
+           exclude: | 
+            .htaccess
+  config/app.php
+  config/database.php
           timeout: 86400000
           log-level: standard
